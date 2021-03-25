@@ -17,8 +17,7 @@ public class MakeOrder implements Runnable{
     public MakeOrder(String name) {
         this.CHANNEL_NAME = name;
     }
-    //Connecting to Redis server on localhost
-    Jedis jedis = new Jedis("localhost",6379);
+
 
 
     @Override

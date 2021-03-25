@@ -10,6 +10,9 @@ public class Orders {
     private int quantity;
     private String product;
 
+    public Orders() {
+    }
+
     public Orders(int id, String side, double price, int quantity, String product) {
         this.id = id;
         this.side = side;

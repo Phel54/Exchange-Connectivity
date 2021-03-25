@@ -19,8 +19,8 @@ public class ExchangeConnectivityApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ExchangeConnectivityApplication.class, args);
 
-		Thread makeOrderToExchange1 = new Thread(new MakeOrder("exchange1OrderRequest"));
-		makeOrderToExchange1.start();
+//		Thread makeOrderToExchange1 = new Thread(new MakeOrder("exchange1OrderRequest"));
+//		makeOrderToExchange1.start();
 
 		Thread placeOrderToExchangeOne = new Thread(new PlaceOrders());
 		placeOrderToExchangeOne.start();

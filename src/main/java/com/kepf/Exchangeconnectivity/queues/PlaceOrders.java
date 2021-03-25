@@ -17,8 +17,6 @@ public class PlaceOrders implements Runnable {
 
     //Connecting to Redis server on localhost
 
-     @Autowired
-    Jedis jedis =  new Jedis("redis-11243.c74.us-east-1-4.ec2.cloud.redislabs.com",11243);
 
 
 
@@ -32,22 +30,29 @@ public class PlaceOrders implements Runnable {
                 e.printStackTrace();
             }
 
-            String data = jedis.rpop("makeOrderexchange1");
-            if (data == null) continue;
+            String data = jedis.rpop("makeOrderExchange1");
+//            if (data == null) {
+//                System.out.println("THere is no more data in the queue");
+//                continue;
+//            }
+            if(jedis.lindex("makeOrderExchange1",0) !=null) {
 
-            System.out.println("exchange1");
-            String order2 = Utility.convertToString(data);
-            System.out.println(order2);
+                System.out.println("exchange1");
+                String order2 = Utility.convertToString(data);
+                System.out.println(order2);
 
-            Orders order = Utility.convertToObject(data, Orders.class);
-            WebClient webClient = WebClient.create(EXCHANGE_1);
-            String orderId = webClient.post().uri("/" + API_KEY + "/order")
-                    .body(Mono.just(order), Orders.class)
-                    .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
+                Orders order = Utility.convertToObject(data, Orders.class);
 
-            System.out.println("Order placed successfully, orderId: " + orderId);
+
+                WebClient webClient = WebClient.create(EXCHANGE_1);
+                String orderId = webClient.post().uri("/" + API_KEY + "/order")
+                        .body(Mono.just(order), Orders.class)
+                        .retrieve()
+                        .bodyToMono(String.class)
+                        .block();
+
+                System.out.println("Order placed successfully, orderId: " + orderId);
+            }
 
         }
     }
