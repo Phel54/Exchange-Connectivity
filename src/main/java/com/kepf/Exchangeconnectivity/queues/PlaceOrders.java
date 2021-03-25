@@ -30,12 +30,13 @@ public class PlaceOrders implements Runnable {
                 e.printStackTrace();
             }
 
-            String data = jedis.rpop("makeOrderExchange1");
+
 //            if (data == null) {
 //                System.out.println("THere is no more data in the queue");
 //                continue;
 //            }
             if(jedis.lindex("makeOrderExchange1",0) !=null) {
+                String data = jedis.rpop("makeOrderExchange1");
 
                 System.out.println("exchange1");
                 String order2 = Utility.convertToString(data);
