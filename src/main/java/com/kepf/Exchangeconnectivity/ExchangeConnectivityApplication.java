@@ -1,5 +1,7 @@
 package com.kepf.Exchangeconnectivity;
 
+import com.kepf.Exchangeconnectivity.modules.MarketData;
+import com.kepf.Exchangeconnectivity.queues.GetMarketData;
 import com.kepf.Exchangeconnectivity.queues.MakeOrder;
 import com.kepf.Exchangeconnectivity.queues.PlaceOrders;
 import org.springframework.boot.SpringApplication;
@@ -22,8 +24,11 @@ public class ExchangeConnectivityApplication {
 //		Thread makeOrderToExchange1 = new Thread(new MakeOrder("exchange1OrderRequest"));
 //		makeOrderToExchange1.start();
 
-		Thread placeOrderToExchangeOne = new Thread(new PlaceOrders());
-		placeOrderToExchangeOne.start();
+//		Thread placeOrderToExchangeOne = new Thread(new PlaceOrders());
+//		placeOrderToExchangeOne.start();
+
+		Thread getMarketData = new Thread(new GetMarketData());
+		getMarketData.start();
 
 	}
 
