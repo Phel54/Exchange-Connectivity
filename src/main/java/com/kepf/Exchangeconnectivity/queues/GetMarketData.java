@@ -32,7 +32,10 @@ public class GetMarketData implements Runnable{
                     .bodyToMono(MarketData[].class)
                     .block();
 
+
+            System.out.println(response.toString());
            String result = Utility.convertToString(response);
+            System.out.println(result);
 
           jedis.lpush("marketdata",result);
 
