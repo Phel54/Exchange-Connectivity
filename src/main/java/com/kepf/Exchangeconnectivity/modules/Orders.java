@@ -1,74 +1,59 @@
 package com.kepf.Exchangeconnectivity.modules;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Entity(name = "orders")
+@Table
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class Orders {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    private String exchange_order_id;
+
+    @ManyToOne
+    @JoinColumn( referencedColumnName = "id")
+    @JsonIgnore
+    private Customer customer;
+    @Column(nullable = false)
+    private Integer quantity;
+
+    @Column(nullable = false)
+    private Double price;
+
+    @Column(nullable = false)
     private String side;
-    private double price;
-    private int quantity;
+
+    @Column(nullable = false)
     private String product;
 
-    public Orders() {
-    }
+    @Column(columnDefinition = "boolean  default false")
+    private Boolean is_valid;
 
-    public Orders(int id, String side, double price, int quantity, String product) {
-        this.id = id;
-        this.side = side;
-        this.price = price;
-        this.quantity = quantity;
-        this.product = product;
-    }
+    @Column(columnDefinition = "boolean  default true")
+    private Boolean is_pending;
 
-    public int getId() {
-        return id;
-    }
+    @Column(columnDefinition = "boolean  default false")
+    private Boolean is_success;
+    @CreationTimestamp
+    private LocalDateTime created_at;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
 
-    public String getSide() {
-        return side;
-    }
 
-    public void setSide(String side) {
-        this.side = side;
-    }
 
-    public double getPrice() {
-        return price;
-    }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getProduct() {
-        return product;
-    }
-
-    public void setProduct(String product) {
-        this.product = product;
-    }
-
-    @Override
-    public String toString() {
-        return "com.kepf.Exchangeconnectivity.modules.Orders{" +
-                "id=" + id +
-                ", side='" + side + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                ", product='" + product + '\'' +
-                '}';
-    }
 }
+

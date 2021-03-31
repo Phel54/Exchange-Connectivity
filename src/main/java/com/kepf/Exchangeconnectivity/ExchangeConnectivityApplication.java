@@ -24,8 +24,8 @@ public class ExchangeConnectivityApplication {
 //		Thread makeOrderToExchange1 = new Thread(new MakeOrder("exchange1OrderRequest"));
 //		makeOrderToExchange1.start();
 
-//		Thread placeOrderToExchangeOne = new Thread(new PlaceOrders());
-//		placeOrderToExchangeOne.start();
+		Thread placeOrderToExchangeOne = new Thread(new PlaceOrders());
+		placeOrderToExchangeOne.start();
 
 		Thread getMarketData = new Thread(new GetMarketData());
 		getMarketData.start();
